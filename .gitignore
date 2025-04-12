@@ -29,7 +29,6 @@ ENV/
 
 # IDE
 .idea/
-.vscode/
 *.swp
 *.swo
 
@@ -47,4 +46,4 @@ htmlcov/
 *.log
 
 # Docker
-.docker/ 
+.docker/
