@@ -11,6 +11,8 @@ A professional Python backend with LLM integration using FastAPI, SQLAlchemy, an
 - Poetry for dependency management
 - Comprehensive testing setup with pytest
 - Modern linting and formatting with ruff, black, and mypy
+- Pre-commit hooks for code quality
+- GitHub Actions for CI/CD
 
 ## Prerequisites
 
@@ -31,7 +33,12 @@ A professional Python backend with LLM integration using FastAPI, SQLAlchemy, an
    poetry install
    ```
 
-4. Create a `.env` file with the following variables:
+4. Set up pre-commit hooks:
+   ```bash
+   poetry run pre-commit install
+   ```
+
+5. Create a `.env` file with the following variables:
    ```
    DATABASE_URL=postgresql+asyncpg://postgres:postgres@localhost:5432/app
    ENVIRONMENT=development
@@ -51,6 +58,21 @@ A professional Python backend with LLM integration using FastAPI, SQLAlchemy, an
    - Swagger UI: http://localhost:8000/docs
    - ReDoc: http://localhost:8000/redoc
 
+## Code Quality
+
+The project uses pre-commit hooks to ensure code quality. These hooks run automatically before each commit and include:
+
+- Code formatting with black and isort
+- Linting with ruff
+- Type checking with mypy
+- Various file checks (YAML, JSON, TOML, etc.)
+- Security checks
+
+To run all hooks manually:
+```bash
+poetry run pre-commit run --all-files
+```
+
 ## Testing
 
 Run tests with coverage:
@@ -58,23 +80,12 @@ Run tests with coverage:
 poetry run pytest --cov=app tests/
 ```
 
-## Code Quality
+## Continuous Integration
 
-- Format code:
-  ```bash
-  poetry run black .
-  poetry run isort .
-  ```
-
-- Lint code:
-  ```bash
-  poetry run ruff check .
-  ```
-
-- Type checking:
-  ```bash
-  poetry run mypy .
-  ```
+The project uses GitHub Actions for CI/CD. The workflow:
+1. Runs pre-commit hooks
+2. Runs tests with coverage
+3. Uploads coverage reports to Codecov
 
 ## License
 
