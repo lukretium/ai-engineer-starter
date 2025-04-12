@@ -24,16 +24,19 @@ A professional Python backend with LLM integration using FastAPI, SQLAlchemy, an
 
 1. Clone the repository
 2. Install Poetry if you haven't already:
+
    ```bash
    curl -sSL https://install.python-poetry.org | python3 -
    ```
 
 3. Install dependencies:
+
    ```bash
    poetry install
    ```
 
 4. Set up pre-commit hooks:
+
    ```bash
    poetry run pre-commit install
    ```
@@ -48,6 +51,7 @@ A professional Python backend with LLM integration using FastAPI, SQLAlchemy, an
 ## Development
 
 1. Start the development environment:
+
    ```bash
    docker-compose up -d
    ```
@@ -69,6 +73,7 @@ The project uses pre-commit hooks to ensure code quality. These hooks run automa
 - Security checks
 
 To run all hooks manually:
+
 ```bash
 poetry run pre-commit run --all-files
 ```
@@ -76,6 +81,7 @@ poetry run pre-commit run --all-files
 ## Testing
 
 Run tests with coverage:
+
 ```bash
 poetry run pytest --cov=app tests/
 ```
@@ -83,10 +89,11 @@ poetry run pytest --cov=app tests/
 ## Continuous Integration
 
 The project uses GitHub Actions for CI/CD. The workflow:
+
 1. Runs pre-commit hooks
 2. Runs tests with coverage
 3. Uploads coverage reports to Codecov
 
 ## License
 
-MIT 
+MIT

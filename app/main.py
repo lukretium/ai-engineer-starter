@@ -18,6 +18,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get("/")
-async def root():
-    return {"message": "Welcome to AI Engineer API"} 
+async def root() -> dict[str, str]:
+    return {"message": "Welcome to AI Engineer API"}
