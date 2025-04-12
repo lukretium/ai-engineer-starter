@@ -50,7 +50,7 @@ jobs:
           DATABASE_URL: postgresql+asyncpg://postgres:postgres@localhost:5432/app
           ENVIRONMENT: test
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: poetry run pytest --cov=app tests/
+        run: poetry run pytest --cov=app --cov-report=xml tests/
 
       - name: Upload coverage
         uses: codecov/codecov-action@v4
