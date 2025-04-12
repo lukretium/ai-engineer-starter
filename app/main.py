@@ -1,11 +1,15 @@
-from fastapi import Depends, FastAPI
+from typing import Any
+
+from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
 from app.db.postgres.session import get_db
 from app.db.vector_store.factory import VectorStoreFactory
 from app.llm.factory import LLMFactory
+from app.models.document import Document
 from app.rag.simple_rag import SimpleRAG
 from app.schemas.rag import DocumentCreate, QueryResponse
 from app.ui.gradio_ui import create_gradio_ui
@@ -55,3 +59,37 @@ async def query(
 ) -> QueryResponse:
     rag_service = get_rag_service(db)
     return await rag_service.query(query, top_k)
+
+
+class ImportRequest(BaseModel):
+    documents: list[dict[str, Any]]
+
+
+class QueryRequest(BaseModel):
+    query: str
+    top_k: int | None = 5
+
+
+@app.post("/import")
+async def import_documents(
+    request: ImportRequest, db: AsyncSession = Depends(get_db)
+) -> dict[str, str]:
+    try:
+        vector_store = VectorStoreFactory.create_vector_store(session=db)
+        documents = [Document(**doc) for doc in request.documents]
+        await vector_store.add_documents(documents)
+        return {"message": f"Successfully imported {len(documents)} documents"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e)) from e
+
+
+@app.get("/query")
+async def query_documents(
+    query: str, top_k: int = 5, db: AsyncSession = Depends(get_db)
+) -> dict[str, list[dict[str, Any]]]:
+    try:
+        vector_store = VectorStoreFactory.create_vector_store(session=db)
+        results = await vector_store.similarity_search(query, k=top_k)
+        return {"results": [doc.dict() for doc in results]}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e)) from e

@@ -1,0 +1,30 @@
+meta {
+  name: Import
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8000/import
+  body: json
+  auth: inherit
+}
+
+body {
+  "documents": [
+    {
+      "content": "The quick brown fox jumps over the lazy dog",
+      "metadata": {
+        "source": "example.txt",
+        "author": "John Doe"
+      }
+    },
+    {
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "metadata": {
+        "source": "lorem.txt",
+        "author": "Jane Smith"
+      }
+    }
+  ]
+}

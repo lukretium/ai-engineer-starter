@@ -1,0 +1,14 @@
+meta {
+  name: Query
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://localhost:8000/query
+  query: {
+    query: "quick fox",
+    top_k: 3
+  }
+  auth: inherit
+}
