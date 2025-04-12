@@ -1,4 +1,4 @@
-from typing import Any, Dict, List
+from typing import Any
 
 import pinecone
 from sentence_transformers import SentenceTransformer
@@ -14,11 +14,11 @@ class PineconeVectorStore(VectorStore):
         self.model = SentenceTransformer("all-MiniLM-L6-v2")
         self.dimension = 384  # all-MiniLM-L6-v2 dimension
 
-    async def add_documents(self, documents: List[DocumentCreate]) -> None:
+    async def add_documents(self, documents: list[DocumentCreate]) -> None:
         vectors = []
         for i, doc in enumerate(documents):
             embedding = self.model.encode(doc.content)
-            metadata: Dict[str, Any] = {"content": doc.content}
+            metadata: dict[str, Any] = {"content": doc.content}
             if doc.metadata:
                 metadata.update(doc.metadata)
             vectors.append(
@@ -27,7 +27,7 @@ class PineconeVectorStore(VectorStore):
 
         self.index.upsert(vectors=vectors)
 
-    async def similarity_search(self, query: str, k: int = 3) -> List[DocumentResponse]:
+    async def similarity_search(self, query: str, k: int = 3) -> list[DocumentResponse]:
         query_embedding = self.model.encode(query)
 
         results = self.index.query(

@@ -1,126 +1,109 @@
-# AI Engineer Backend
+# AI Engineer Python Starter
 
-A professional Python backend with LLM integration using FastAPI, SQLAlchemy, and modern tooling.
+A professional Python backend template with LLM integration, vector store support, and a Gradio UI for configuration.
 
 ## Features
 
-- FastAPI for modern async API endpoints
-- SQLAlchemy with async support for database operations
-- PostgreSQL database
-- Docker and docker-compose for development and production
-- Poetry for dependency management
-- Comprehensive testing setup with pytest
-- Modern linting and formatting with ruff, black, and mypy
+- FastAPI backend with async support
+- PostgreSQL with vector extension support
+- Pinecone vector store integration
+- OpenAI and Anthropic LLM support
+- Gradio UI for runtime configuration
+- Type hints and strict mypy configuration
 - Pre-commit hooks for code quality
-- GitHub Actions for CI/CD
+- Docker support
 
-## Prerequisites
-
-- Python 3.11+
-- Docker and docker-compose
-- Poetry
-
-## Setup
+## Getting Started
 
 1. Clone the repository
-2. Install Poetry if you haven't already:
-
-   ```bash
-   curl -sSL https://install.python-poetry.org | python3 -
-   ```
-
+2. Copy `.env.sample` to `.env` and fill in your configuration
 3. Install dependencies:
 
    ```bash
+   curl -sSL https://install.python-poetry.org | python3 -
    poetry install
    ```
 
-4. Set up pre-commit hooks:
+4. Start the development server:
 
    ```bash
-   poetry run pre-commit install
+   poetry run uvicorn app.main:app --reload
    ```
 
-5. Create a `.env` file with the following variables:
-   ```
-   DATABASE_URL=postgresql+asyncpg://postgres:postgres@localhost:5432/app
-   ENVIRONMENT=development
-   OPENAI_API_KEY=your_openai_api_key
-   ```
+## Configuration
+
+### Environment Variables
+
+See `.env.sample` for all available configuration options:
+
+```env
+# Database Configuration
+DATABASE_URL=postgresql+asyncpg://user:password@localhost:5432/dbname
+DB_ECHO_LOG=false
+
+# Vector Store Configuration
+VECTOR_STORE_TYPE=postgres  # or "pinecone"
+
+# Pinecone Configuration (required if VECTOR_STORE_TYPE=pinecone)
+PINECONE_API_KEY=your-api-key
+PINECONE_ENVIRONMENT=your-environment
+PINECONE_INDEX_NAME=your-index-name
+
+# LLM Configuration
+LLM_TYPE=openai  # or "anthropic"
+
+# OpenAI Configuration (required if LLM_TYPE=openai)
+OPENAI_API_KEY=your-api-key
+OPENAI_MODEL=gpt-3.5-turbo
+
+# Anthropic Configuration (required if LLM_TYPE=anthropic)
+ANTHROPIC_API_KEY=your-api-key
+ANTHROPIC_MODEL=claude-3-opus-20240229
+```
+
+### Gradio UI
+
+Access the Gradio UI at `http://localhost:8000/ui` to:
+
+- Switch between vector stores (PostgreSQL/Pinecone)
+- Switch between LLMs (OpenAI/Anthropic)
+- Apply changes at runtime
+
+The UI configuration persists until the server is restarted, at which point it reverts to environment variable settings.
+
+## API Endpoints
+
+- `GET /`: Welcome message
+- `POST /documents/`: Add documents to the vector store
+- `POST /query/`: Query the RAG system
 
 ## Development
 
-### Running Locally (Recommended for Development)
-
-For active development with hot reloading (recommended):
-
-1. Start the PostgreSQL database:
-
-   ```bash
-   docker-compose up -d postgres
-   ```
-
-2. Start the development server:
-
-   ```bash
-   poetry run uvicorn app.main:app --reload --port 8000
-   ```
-
-3. The API will be available at http://localhost:8000
-
-   - Changes to your code will automatically reload the server
-   - Perfect for rapid development and testing
-
-4. API documentation:
-   - Swagger UI: http://localhost:8000/docs
-   - ReDoc: http://localhost:8000/redoc
-
-### Running with Docker
-
-For testing the complete system with all services:
-
-1. Start the development environment:
-
-   ```bash
-   docker-compose up -d
-   ```
-
-2. The API will be available at http://localhost:8000
-   - Includes PostgreSQL database and other services
-   - Better for testing the full deployment environment
-   - Note: Code changes require rebuilding the container
-
-## Testing
-
-Run tests with coverage:
+### Running Tests
 
 ```bash
-poetry run pytest --cov=app tests/
+poetry run pytest
 ```
 
-## Code Quality
-
-The project uses pre-commit hooks to ensure code quality. These hooks run automatically before each commit and include:
-
-- Code formatting with black and isort
-- Linting with ruff
-- Type checking with mypy
-- Various file checks (YAML, JSON, TOML, etc.)
-- Security checks
-
-To run all hooks manually:
+### Code Quality
 
 ```bash
+# Run all checks
 poetry run pre-commit run --all-files
+
+# Run specific checks
+poetry run ruff check .
+poetry run mypy .
+poetry run black .
 ```
 
-## Continuous Integration
+### Docker
 
-The project uses GitHub Actions for CI/CD. The workflow:
+Build and run with Docker:
 
-1. Runs pre-commit hooks
-2. Runs tests with coverage
-3. Uploads coverage reports to Codecov
+```bash
+docker-compose up --build
+```
 
 ## License
 

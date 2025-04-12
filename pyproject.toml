@@ -23,6 +23,7 @@ pgvector = "0.2.4"
 sentence-transformers = "2.2.2"
 psycopg2-binary = "2.9.9"
 anthropic = "0.18.1"
+gradio = "4.19.2"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "8.0.0"

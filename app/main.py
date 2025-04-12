@@ -8,6 +8,7 @@ from app.db.vector_store.factory import VectorStoreFactory
 from app.llm.factory import LLMFactory
 from app.rag.simple_rag import SimpleRAG
 from app.schemas.rag import DocumentCreate, QueryResponse
+from app.ui.gradio_ui import create_gradio_ui
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -23,6 +24,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Initialize Gradio UI
+create_gradio_ui(app)
 
 
 def get_rag_service(db: AsyncSession) -> SimpleRAG:

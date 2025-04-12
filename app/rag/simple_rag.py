@@ -12,7 +12,10 @@ class SimpleRAG(RAG):
 
         if not documents:
             return QueryResponse(
-                answer="I don't have enough information to answer your question based on the provided documents.",
+                answer=(
+                    "I don't have enough information to answer your question "
+                    "based on the provided documents."
+                ),
                 documents=[],
             )
 
