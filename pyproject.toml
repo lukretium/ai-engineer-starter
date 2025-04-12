@@ -19,6 +19,10 @@ pydantic-settings = "2.1.0"
 langchain = "0.1.0"
 openai = "1.12.0"
 httpx = "0.26.0"
+pgvector = "0.2.4"
+sentence-transformers = "2.2.2"
+psycopg2-binary = "2.9.9"
+anthropic = "0.18.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "8.0.0"
@@ -39,7 +43,8 @@ build-backend = "poetry.core.masonry.api"
 line-length = 88
 target-version = "py311"
 select = ["E", "F", "B", "I", "N", "UP", "PL", "RUF"]
-ignore = []
+ignore = ["B008"]
+per-file-ignores = {"app/main.py" = ["B008"]}
 
 [tool.ruff.isort]
 known-first-party = ["app"]
