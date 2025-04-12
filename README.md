@@ -50,6 +50,35 @@ A professional Python backend with LLM integration using FastAPI, SQLAlchemy, an
 
 ## Development
 
+### Running Locally (Recommended for Development)
+
+For active development with hot reloading (recommended):
+
+1. Start the PostgreSQL database:
+
+   ```bash
+   docker-compose up -d postgres
+   ```
+
+2. Start the development server:
+
+   ```bash
+   poetry run uvicorn app.main:app --reload --port 8000
+   ```
+
+3. The API will be available at http://localhost:8000
+
+   - Changes to your code will automatically reload the server
+   - Perfect for rapid development and testing
+
+4. API documentation:
+   - Swagger UI: http://localhost:8000/docs
+   - ReDoc: http://localhost:8000/redoc
+
+### Running with Docker
+
+For testing the complete system with all services:
+
 1. Start the development environment:
 
    ```bash
@@ -57,10 +86,17 @@ A professional Python backend with LLM integration using FastAPI, SQLAlchemy, an
    ```
 
 2. The API will be available at http://localhost:8000
+   - Includes PostgreSQL database and other services
+   - Better for testing the full deployment environment
+   - Note: Code changes require rebuilding the container
 
-3. API documentation:
-   - Swagger UI: http://localhost:8000/docs
-   - ReDoc: http://localhost:8000/redoc
+## Testing
+
+Run tests with coverage:
+
+```bash
+poetry run pytest --cov=app tests/
+```
 
 ## Code Quality
 
@@ -76,14 +112,6 @@ To run all hooks manually:
 
 ```bash
 poetry run pre-commit run --all-files
-```
-
-## Testing
-
-Run tests with coverage:
-
-```bash
-poetry run pytest --cov=app tests/
 ```
 
 ## Continuous Integration
