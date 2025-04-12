@@ -1,4 +1,4 @@
 [core]
     hooksPath = .git/hooks
 [init]
-    templateDir = .git-template 
+    templateDir = .git-template

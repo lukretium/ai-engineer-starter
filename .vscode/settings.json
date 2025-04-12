@@ -1,20 +1,20 @@
 {
-    "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-        "source.organizeImports": "always"
-    },
-    "[python]": {
-        "editor.defaultFormatter": "ms-python.black-formatter",
-        "editor.formatOnSave": true
-    },
-    "ruff.enable": true,
-    "mypy-type-checker.importStrategy": "fromEnvironment",
-    "yaml.schemas": {
-        "https://json.schemastore.org/pre-commit-config.json": ".pre-commit-config.yaml"
-    },
-    "git.enableSmartCommit": true,
-    "git.autofetch": true,
-    "git.postCommitCommand": "sync",
-    "git.confirmSync": false,
-    "git.allowForcePush": false
-} 
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "always"
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnSave": true
+  },
+  "ruff.enable": true,
+  "mypy-type-checker.importStrategy": "fromEnvironment",
+  "yaml.schemas": {
+    "https://json.schemastore.org/pre-commit-config.json": ".pre-commit-config.yaml"
+  },
+  "git.enableSmartCommit": true,
+  "git.autofetch": true,
+  "git.postCommitCommand": "sync",
+  "git.confirmSync": false,
+  "git.allowForcePush": false
+}
