@@ -4,7 +4,7 @@ from app.core.config import settings
 
 
 class EmbeddingsService:
-    def __init__(self):
+    def __init__(self) -> None:
         self.client = AsyncOpenAI(api_key=settings.OPENAI_API_KEY)
         self.model = (
             "text-embedding-3-small"  # or "text-embedding-3-large" for better quality
@@ -14,4 +14,5 @@ class EmbeddingsService:
         response = await self.client.embeddings.create(
             model=self.model, input=text, encoding_format="float"
         )
-        return response.data[0].embedding
+        embedding: list[float] = response.data[0].embedding
+        return embedding

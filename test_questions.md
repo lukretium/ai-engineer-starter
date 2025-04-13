@@ -1,6 +1,7 @@
 # RAG System Test Questions
 
 ## Product Information
+
 - What are the key features of AI Assistant Pro?
   - Expected Answer: AI Assistant Pro features advanced natural language processing, supports multiple languages, and can be integrated with various business applications.
 - What security standards does the Enterprise Security Suite comply with?
@@ -11,6 +12,7 @@
   - Expected Answer: AI Assistant Pro uses advanced natural language processing to understand and respond to user queries, making it state-of-the-art.
 
 ## Support & Customer Service
+
 - What is the average response time for customer support?
   - Expected Answer: The average response time is under 2 hours.
 - What channels are available for customer support?
@@ -21,6 +23,7 @@
   - Expected Answer: Yes, customer support is available 24/7.
 
 ## Pricing & Plans
+
 - What are the different pricing plans available?
   - Expected Answer: The available plans are Basic, Professional, and Enterprise.
 - What is the cost of the Basic plan?
@@ -31,6 +34,7 @@
   - Expected Answer: The Enterprise plan is the most expensive at $499/month.
 
 ## Complex Questions (Multiple Documents)
+
 - What products does TechCorp offer and what are their key features?
   - Expected Answer: TechCorp offers:
     - AI Assistant Pro: Advanced NLP, multilingual support, business integration
@@ -48,6 +52,7 @@
   - Expected Answer: Customers have access to 24/7 support through multiple channels (email, phone, live chat) with an average response time under 2 hours and a 98% satisfaction rate.
 
 ## Edge Cases
+
 - What is the latest version of AI Assistant Pro?
   - Expected Answer: The latest version is 2.0.
 - Does TechCorp offer any free plans?
@@ -58,6 +63,7 @@
   - Expected Answer: The Cloud Storage Solution offers unlimited capacity.
 
 ## Tips for Testing
+
 1. Try each question multiple times to check consistency
 2. Compare answers between different LLM providers (if configured)
 3. Check if the retrieved documents are relevant to the question
@@ -65,6 +71,7 @@
 5. Test with both specific and broad questions
 
 ## Notes
+
 - Some answers may vary slightly in wording but should contain the same key information
 - For complex questions, the answer might be structured differently but should include all relevant points
-- Edge cases might return "I don't have enough information" for questions not covered in the documents 
+- Edge cases might return "I don't have enough information" for questions not covered in the documents

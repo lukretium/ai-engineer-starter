@@ -14,3 +14,4 @@ class DocumentResponse(BaseModel):
 class QueryResponse(BaseModel):
     answer: str
     documents: list[DocumentResponse]
+    confidence_score: float

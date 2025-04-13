@@ -1,6 +1,5 @@
 from pydantic_settings import BaseSettings
 
-from app.core.settings import settings
 from app.embeddings.types import EmbeddingType
 
 
@@ -40,4 +39,4 @@ class Settings(BaseSettings):
         case_sensitive = True
 
 
-__all__ = ["settings"]
+settings = Settings()

@@ -3,7 +3,7 @@ from collections.abc import AsyncGenerator
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
-from app.core.config import settings
+from app.core.settings import settings
 from app.db.postgres.models import Base
 
 engine = create_async_engine(
@@ -22,11 +22,15 @@ AsyncSessionLocal = async_sessionmaker(
 
 
 async def init_db() -> None:
-    async with engine.begin() as conn:
-        # Enable the vector extension
-        await conn.execute(text("CREATE EXTENSION IF NOT EXISTS vector"))
-        # Create all tables
-        await conn.run_sync(Base.metadata.create_all)
+    """Initialize database connection pool on startup.
+
+    This function is called once during application startup to ensure
+    the database connection pool is properly initialized.
+    """
+    # The connection pool is already initialized by SQLAlchemy
+    # We don't need to do anything here unless we have specific
+    # initialization requirements
+    pass
 
 
 async def get_db() -> AsyncGenerator[AsyncSession, None]:

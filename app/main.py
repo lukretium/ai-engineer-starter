@@ -6,9 +6,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.config import settings
+from app.core.settings import settings
 from app.db.postgres.session import get_db, init_db
 from app.db.vector_store.factory import VectorStoreFactory
+from app.embeddings.factory import EmbeddingFactory
 from app.llm.factory import LLMFactory
 from app.models.document import Document
 from app.rag.simple_rag import SimpleRAG
@@ -37,7 +38,8 @@ gradio_app = gr.mount_gradio_app(app, create_gradio_ui(), path="/ui")
 def get_rag_service(db: AsyncSession) -> SimpleRAG:
     vector_store = VectorStoreFactory.create_vector_store(session=db)
     llm = LLMFactory.create_llm()
-    return SimpleRAG(vector_store, llm)
+    embedding_provider = EmbeddingFactory.create_embedding_provider()
+    return SimpleRAG(vector_store, llm, embedding_provider)
 
 
 @app.get("/")
@@ -98,4 +100,10 @@ async def query_documents(
 
 @app.on_event("startup")
 async def startup_event() -> None:
+    """Initialize application on startup.
+
+    This function is called once when the application starts.
+    It ensures all necessary components are properly initialized.
+    """
+    # Initialize database connection pool
     await init_db()

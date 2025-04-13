@@ -24,6 +24,7 @@ class ConfigManager:
     _instance = None
     _config: Config | None = None
 
+    # Singleton pattern
     def __new__(cls) -> "ConfigManager":
         if cls._instance is None:
             cls._instance = super().__new__(cls)

@@ -11,15 +11,19 @@ services:
       - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/app
       - ENVIRONMENT=development
       - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - EMBEDDING_TYPE=ollama
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - OLLAMA_EMBEDDING_MODEL=nomic-embed-text
     volumes:
       - .:/app
     depends_on:
       - db
+      - ollama
 
   db:
     image: ankane/pgvector:latest
     ports:
-      - "5433:5432"
+      - "5432:5432"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -27,5 +31,13 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+
 volumes:
   postgres_data:
+  ollama_data:
