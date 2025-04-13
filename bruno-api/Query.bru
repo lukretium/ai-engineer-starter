@@ -5,10 +5,22 @@ meta {
 }
 
 get {
-  url: http://localhost:8000/query
-  query: {
-    query: "quick fox",
-    top_k: 3
-  }
+  url: http://localhost:8000/query?query=What are the key features of AI Assistant Pro?&top_k=3
   auth: inherit
 }
+
+// Expected Response Format:
+// {
+//   "results": [
+//     {
+//       "content": "string",
+//       "metadata": {
+//         "source": "string",
+//         "category": "string",
+//         "product_name": "string",
+//         "version": "string",
+//         "features": ["string"]
+//       }
+//     }
+//   ]
+// }

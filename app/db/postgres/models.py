@@ -1,7 +1,8 @@
 from datetime import datetime
-from typing import Optional
 
-from sqlalchemy import Column, DateTime, Integer, String, Text
+from pgvector.sqlalchemy import Vector
+from sqlalchemy import Column, DateTime, Integer, Text
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import DeclarativeBase
 
 
@@ -14,8 +15,10 @@ class Document(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     content = Column(Text, nullable=False)
-    document_metadata = Column(Text, nullable=True)
-    embedding = Column(String, nullable=True)
+    document_metadata = Column(JSONB, nullable=True)
+    embedding = Column(
+        Vector(1536), nullable=True
+    )  # OpenAI text-embedding-3-small dimensions
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 

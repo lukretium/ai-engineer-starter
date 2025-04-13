@@ -1,20 +1,20 @@
-from sentence_transformers import SentenceTransformer
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db.postgres.models import Document
 from app.db.vector_store.base import VectorStore
 from app.schemas.rag import DocumentCreate, DocumentResponse
+from app.services.embeddings import EmbeddingsService
 
 
 class PostgresVectorStore(VectorStore):
     def __init__(self, session: AsyncSession):
         self.session = session
-        self.model = SentenceTransformer("all-MiniLM-L6-v2")
+        self.embeddings_service = EmbeddingsService()
 
     async def add_documents(self, documents: list[DocumentCreate]) -> None:
         for doc in documents:
-            embedding = self.model.encode(doc.content)
+            embedding = await self.embeddings_service.get_embedding(doc.content)
             db_doc = Document(
                 content=doc.content, metadata=doc.metadata, embedding=embedding
             )
@@ -22,7 +22,7 @@ class PostgresVectorStore(VectorStore):
         await self.session.commit()
 
     async def similarity_search(self, query: str, k: int = 3) -> list[DocumentResponse]:
-        query_embedding = self.model.encode(query)
+        query_embedding = await self.embeddings_service.get_embedding(query)
 
         similar_docs = await self.session.execute(
             select(Document)
