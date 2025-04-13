@@ -1,10 +1,8 @@
 from collections.abc import AsyncGenerator
 
-from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
 from app.core.settings import settings
-from app.db.postgres.models import Base
 
 engine = create_async_engine(
     settings.DATABASE_URL,

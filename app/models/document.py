@@ -1,10 +1,8 @@
 from datetime import datetime
-from typing import Any, Dict, Optional
 
 from pgvector.sqlalchemy import Vector
 from sqlalchemy import Column, DateTime, Index, Integer, String, Text
 from sqlalchemy.dialects.postgresql import JSONB
-from sqlalchemy.ext.mutable import MutableList
 
 from app.db.base_class import Base
 

@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from sqlalchemy import engine_from_config, pool
 
 from alembic import context
+from app.db.base_class import Base
 
 # Add the project root directory to the Python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -13,10 +14,8 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 # Load environment variables
 load_dotenv()
 
-from app.db.base_class import Base
 
 # Import your models here
-from app.models.document import Document
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

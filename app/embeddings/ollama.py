@@ -2,6 +2,8 @@ import aiohttp
 
 from .base import EmbeddingProvider
 
+HTTP_OK = 200
+
 
 class OllamaEmbedding(EmbeddingProvider):
     def __init__(
@@ -27,7 +29,7 @@ class OllamaEmbedding(EmbeddingProvider):
             f"{self.base_url}/api/embeddings",
             json={"model": self.model, "prompt": text},
         ) as response:
-            if response.status != 200:
+            if response.status != HTTP_OK:
                 raise Exception(f"Ollama API error: {await response.text()}")
             result = await response.json()
             return result["embedding"]

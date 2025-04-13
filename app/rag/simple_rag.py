@@ -1,5 +1,4 @@
 import logging
-from typing import List, Tuple
 
 import numpy as np
 
@@ -35,7 +34,7 @@ class SimpleRAG(RAG):
         await self.vector_store.add_documents(documents)
 
     def _calculate_similarity(
-        self, query_embedding: List[float], doc_embedding: List[float]
+        self, query_embedding: list[float], doc_embedding: list[float]
     ) -> float:
         """Calculate cosine similarity between query and document embeddings."""
         # Pad both embeddings to target dimension

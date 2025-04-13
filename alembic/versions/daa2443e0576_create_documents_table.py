@@ -1,21 +1,18 @@
 """create documents table
 
 Revision ID: daa2443e0576
-Revises: 
+Revises:
 Create Date: 2025-04-13 15:03:18.560223
 
 """
-from typing import Sequence, Union
 
-from alembic import op
-import sqlalchemy as sa
-
+from collections.abc import Sequence
 
 # revision identifiers, used by Alembic.
-revision: str = 'daa2443e0576'
-down_revision: Union[str, None] = None
-branch_labels: Union[str, Sequence[str], None] = None
-depends_on: Union[str, Sequence[str], None] = None
+revision: str = "daa2443e0576"
+down_revision: str | None = None
+branch_labels: str | Sequence[str] | None = None
+depends_on: str | Sequence[str] | None = None
 
 
 def upgrade() -> None:
