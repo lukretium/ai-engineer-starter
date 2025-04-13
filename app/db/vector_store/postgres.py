@@ -1,7 +1,7 @@
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.settings import settings
+from app.core.config_manager import ConfigManager
 from app.db.postgres.models import Document
 from app.db.vector_store.base import VectorStore
 from app.embeddings.factory import EmbeddingFactory
@@ -36,7 +36,7 @@ class PostgresVectorStore(VectorStore):
                 content=doc.content,
                 metadata=doc.metadata,
                 embedding=padded_embedding,
-                embedding_type=settings.EMBEDDING_TYPE.value,
+                embedding_type=ConfigManager.get_config().embedding_type.value,
             )
             self.session.add(db_doc)
         await self.session.commit()

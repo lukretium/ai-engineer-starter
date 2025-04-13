@@ -17,7 +17,7 @@ class Settings(BaseSettings):
     PINECONE_ENVIRONMENT: str = ""
     PINECONE_INDEX_NAME: str = ""
 
-    LLM_TYPE: str = "openai"  # or "anthropic"
+    LLM_TYPE: str = "openai"  # or "anthropic" or "ollama"
 
     OPENAI_API_KEY: str = ""
     OPENAI_MODEL: str = "gpt-3.5-turbo"
@@ -26,11 +26,14 @@ class Settings(BaseSettings):
     ANTHROPIC_API_KEY: str = ""
     ANTHROPIC_MODEL: str = "claude-3-opus-20240229"
 
+    # Ollama configuration
+    OLLAMA_MODEL: str = "llama3.2"
+    OLLAMA_BASE_URL: str = "http://host.docker.internal:11434"
+
     # Embedding configuration
-    EMBEDDING_TYPE: EmbeddingType = EmbeddingType.OPENAI
+    EMBEDDING_TYPE: EmbeddingType = EmbeddingType.OLLAMA
     HUGGINGFACE_EMBEDDING_MODEL: str = "sentence-transformers/all-MiniLM-L6-v2"
     OLLAMA_EMBEDDING_MODEL: str = "nomic-embed-text"
-    OLLAMA_BASE_URL: str = "http://localhost:11434"
 
     ENVIRONMENT: str = "development"
 
