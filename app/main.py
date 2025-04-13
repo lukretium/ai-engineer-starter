@@ -89,11 +89,10 @@ async def import_documents(
 @app.get("/query")
 async def query_documents(
     query: str, top_k: int = 5, db: AsyncSession = Depends(get_db)
-) -> dict[str, list[dict[str, Any]]]:
+) -> QueryResponse:
     try:
-        vector_store = VectorStoreFactory.create_vector_store(session=db)
-        results = await vector_store.similarity_search(query, k=top_k)
-        return {"results": [doc.dict() for doc in results]}
+        rag_service = get_rag_service(db)
+        return await rag_service.query(query, top_k)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e)) from e
 
