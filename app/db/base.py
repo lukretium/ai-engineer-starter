@@ -1,4 +1,6 @@
+from abc import ABC, abstractmethod
 from collections.abc import AsyncGenerator
+from typing import Any
 
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
@@ -16,3 +18,13 @@ Base = declarative_base()
 async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
     async with async_session_maker() as session:
         yield session
+
+
+class Database(ABC):
+    @abstractmethod
+    async def get_session(self) -> AsyncGenerator[Any, None]:
+        pass
+
+    @abstractmethod
+    async def init_db(self) -> None:
+        pass

@@ -1,0 +1,65 @@
+meta {
+  name: Import
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8000/import
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {"documents": [
+    {
+      "content": "TechCorp's flagship product is the AI Assistant Pro, a state-of-the-art virtual assistant that uses advanced natural language processing to understand and respond to user queries. It supports multiple languages and can be integrated with various business applications.",
+      "metadata": {
+        "source": "product_catalog",
+        "category": "products",
+        "product_name": "AI Assistant Pro",
+        "version": "2.0",
+        "features": ["NLP", "multilingual", "integration"]
+      }
+    },
+    {
+      "content": "Our Enterprise Security Suite provides comprehensive protection for your business data. It includes real-time threat detection, automated backup solutions, and 24/7 monitoring. The suite is compliant with GDPR and ISO 27001 standards.",
+      "metadata": {
+        "source": "product_catalog",
+        "category": "products",
+        "product_name": "Enterprise Security Suite",
+        "version": "1.5",
+        "features": ["security", "compliance", "monitoring"]
+      }
+    },
+    {
+      "content": "TechCorp's customer support team is available 24/7 through multiple channels including email, phone, and live chat. Our average response time is under 2 hours, and we maintain a 98% customer satisfaction rate.",
+      "metadata": {
+        "source": "support_docs",
+        "category": "support",
+        "service_type": "customer_support",
+        "availability": "24/7",
+        "metrics": ["2h response time", "98% satisfaction"]
+      }
+    },
+    {
+      "content": "The Cloud Storage Solution offers scalable storage options starting from 100GB to unlimited capacity. It features automatic data replication across multiple data centers and end-to-end encryption for maximum security.",
+      "metadata": {
+        "source": "product_catalog",
+        "category": "products",
+        "product_name": "Cloud Storage Solution",
+        "version": "3.2",
+        "features": ["scalable", "secure", "replicated"]
+      }
+    },
+    {
+      "content": "Our pricing plans are flexible and tailored to your needs. The Basic plan starts at $29/month, Professional at $99/month, and Enterprise at $499/month. All plans include 24/7 support and regular updates.",
+      "metadata": {
+        "source": "pricing_docs",
+        "category": "pricing",
+        "plan_types": ["Basic", "Professional", "Enterprise"],
+        "price_range": ["$29", "$99", "$499"]
+      }
+    }
+  ]}
+}

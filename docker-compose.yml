@@ -4,19 +4,22 @@ services:
   app:
     build:
       context: .
-      dockerfile: docker/Dockerfile
+      dockerfile: Dockerfile
     ports:
       - "8000:8000"
     environment:
       - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/app
       - ENVIRONMENT=development
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - EMBEDDING_TYPE=openai
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
     volumes:
       - .:/app
     depends_on:
       - db
 
   db:
-    image: postgres:15-alpine
+    image: ankane/pgvector:latest
     ports:
       - "5432:5432"
     environment:

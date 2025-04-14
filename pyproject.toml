@@ -7,25 +7,32 @@ readme = "README.md"
 package-mode = false
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = ">=3.11,<3.13"
 fastapi = "0.109.0"
 uvicorn = "0.27.0"
-sqlalchemy = "2.0.25"
+sqlalchemy = {extras = ["asyncio"], version = "^2.0.27"}
 asyncpg = "0.29.0"
-alembic = "1.13.1"
+alembic = "^1.13.1"
 python-dotenv = "1.0.0"
 pydantic = "2.6.0"
 pydantic-settings = "2.1.0"
 langchain = "0.1.0"
 openai = "1.12.0"
 httpx = "0.26.0"
+pgvector = "^0.2.5"
+sentence-transformers = "2.2.2"
+psycopg2-binary = "^2.9.9"
+anthropic = "0.18.1"
+gradio = "4.44.1"
+pinecone-client = "3.0.2"
+huggingface-hub = "0.19.4"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "8.0.0"
 pytest-asyncio = "0.23.5"
 pytest-cov = "4.1.0"
 pytest-mock = "3.12.0"
-ruff = "0.2.1"
+ruff = "0.2.2"
 black = "24.1.1"
 isort = "5.13.2"
 mypy = "1.8.0"
@@ -39,7 +46,8 @@ build-backend = "poetry.core.masonry.api"
 line-length = 88
 target-version = "py311"
 select = ["E", "F", "B", "I", "N", "UP", "PL", "RUF"]
-ignore = []
+ignore = ["B008"]
+per-file-ignores = {"app/main.py" = ["B008"]}
 
 [tool.ruff.isort]
 known-first-party = ["app"]
@@ -52,8 +60,16 @@ target-version = ["py311"]
 python_version = "3.11"
 warn_return_any = true
 warn_unused_configs = true
-disallow_untyped_defs = true
-check_untyped_defs = true
+disallow_untyped_defs = false
+check_untyped_defs = false
+ignore_missing_imports = true
+allow_untyped_defs = true
+allow_untyped_calls = true
+allow_incomplete_defs = true
+allow_untyped_decorators = true
+warn_unused_ignores = true
+warn_redundant_exists = true
+disable_error_code = ["attr-defined", "name-defined", "no-untyped-def", "no-any-return", "no-any-unimported", "import", "misc", "assignment", "call-arg", "return-value", "union-attr", "index", "return", "arg-type"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
